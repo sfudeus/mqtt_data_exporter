@@ -85,7 +85,7 @@ func getSingleReadout(sensorName string, sensorType sensorType, input interface{
 	var value float64
 	var ok bool
 
-	data, ok := input.(map[interface{}]interface{})
+	data, ok := input.(map[string]interface{})
 	if !ok {
 		logger.Warn(sensorClientId, "[sensorType: %s][1] Got wrong type (%T) for sensor data", sensorType, input)
 		return nil, errors.New("got wrong type for sensor data")
@@ -93,7 +93,7 @@ func getSingleReadout(sensorName string, sensorType sensorType, input interface{
 	logger.Debug(sensorClientId, "[sensorType: %s][2] Got sensor data: %+v", sensorType, data)
 	interfaceValue, ok := data[string(sensorType)]
 	if !ok {
-		logger.Warn(sensorClientId, "[sensorType: %s][3] Could not get sensor value, got: %+v", sensorType, interfaceValue)
+		logger.Debug(sensorClientId, "[%s/%s][3] Could not get sensor value, got: %+v", sensorName, sensorType, interfaceValue)
 		return nil, errors.New("got wrong type for sensor data")
 	}
 
